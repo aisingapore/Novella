@@ -1,4 +1,4 @@
-# Query-based recommeder system
+# Query-based recommender system
 
 This is a quasi search engine recommender system that takes in a query and returns transactionally similar items. This method is used in NUS Libraries.
 
