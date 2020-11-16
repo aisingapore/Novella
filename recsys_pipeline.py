@@ -26,9 +26,13 @@ def preprocess(interactions: str = "interactions.csv",
         ColumnNotFoundError: If "title" column not found in the
             items file
     """
-
+    # Check file paths
     path_interactions = Path(interactions)
     path_items = Path(items)
+    if not path_interactions.exists():
+        raise FileNotFoundError("Specify a file for interactions")
+    if not path_items.exists():
+        raise FileNotFoundError("Specify a file for items")
 
     # Read data
     df_intxn = pd.read_csv(path_interactions)
@@ -40,7 +44,7 @@ def preprocess(interactions: str = "interactions.csv",
     if "title" not in df_items.columns:
         raise ColumnNotFoundError("`title` must be present in items")
 
-    # Data
+    # Format to usable data
     titles = df_items["title"].tolist()
     mat = csr_matrix(
         (df_intxn["interaction"], (df_intxn["item"], df_intxn["user"])))
