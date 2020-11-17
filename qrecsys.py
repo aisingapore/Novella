@@ -11,8 +11,9 @@ from sklearn.metrics.pairwise import euclidean_distances
 EMBEDS_USE_URL = "https://tfhub.dev/google/universal-sentence-encoder/4"
 
 
-def preprocess(interactions: str = "interactions.csv",
-               items: str = "items.csv"):
+def preprocess(path_interactions: str = "interactions.csv",
+               path_items: str = "items.csv",
+               path_serialised: str = "."):
     """
     Read data, fit the data, comvert to embeddings and serialise.
 
@@ -28,16 +29,19 @@ def preprocess(interactions: str = "interactions.csv",
             items file
     """
     # Check file paths
-    path_interactions = Path(interactions)
-    path_items = Path(items)
+    path_interactions = Path(path_interactions)
+    path_items = Path(path_items)
+    path_serialised = Path(path_serialised)
     if not path_interactions.exists():
         raise FileNotFoundError("Specify a file for interactions")
     if not path_items.exists():
         raise FileNotFoundError("Specify a file for items")
+    if not path_serialised.exists():
+        path_serialised.mkdir()
 
     # Read data
     df_intxn = pd.read_csv(path_interactions)
-    df_items = pd.read_csv(path_items)
+    df_items = pd.read_csv(path_items, index_col="id")
     if set(df_intxn.columns) - set(["interaction", "item", "user"]):
         raise ColumnNotFoundError(
             "These columns must be present in interactions: "
@@ -64,24 +68,26 @@ def preprocess(interactions: str = "interactions.csv",
     embeds_use = np.vstack(embeds_use)
 
     # Serialise embeddings
-    np.save("embeds_mf.npy", embeds_mf)
-    np.save("embeds_use.npy", embeds_use)
+    np.save(path_serialised/"embeds_mf.npy", embeds_mf)
+    np.save(path_serialised/"embeds_use.npy", embeds_use)
 
 
 class Recommender:
 
     def __init__(self,
-                 path_embeds_mf: str = "embeds_mf.npy",
-                 path_embeds_use: str = "embeds_mf.npy",
-                 path_interactions: str = "interactions.csv",):
+                 path_items: str = "items.csv",
+                 path_interactions: str = "interactions.csv",
+                 path_serialised: str = "."):
 
-        path_embeds_mf = Path(path_embeds_mf)
-        path_embeds_use = Path(path_embeds_use)
+        path_items = Path(path_items)
         path_interactions = Path(path_interactions)
+        path_embeds_mf = Path(path_serialised)/"embeds_mf.npy"
+        path_embeds_use = Path(path_serialised)/"embeds_use.npy"
 
         self.encoder = hub.load(EMBEDS_USE_URL)
         self.embeds_mf = np.load(path_embeds_mf)
         self.embeds_use = np.load(path_embeds_use)
+        self.items = pd.read_csv(path_items, index_col="id")
         self.interacted_items = set(pd.read_csv(path_interactions)["item"])
 
     def recommend(self,
@@ -113,6 +119,7 @@ class Recommender:
         """
         # Get encoding
         encoded_query = self.encoder([query])
+        encoded_query = encoded_query.numpy()
 
         # 1. Get nearest USE items
         item_ids = self._find_nearest(
@@ -137,7 +144,14 @@ class Recommender:
             rec = np.setdiff1d(mf_items, recs, assume_unique=True)[:K_mf]
             recs.extend(rec)
 
-        return recs[:n_to_recommend]
+        # 5. Truncate
+        recs = recs[:n_to_recommend]
+
+        # 6. Get titles
+        recs_titles = [self.items.loc[idx].item() for idx in recs]
+
+        return recs_titles
+
 
     def _find_nearest(self, x, y, K) -> list:
         dists = euclidean_distances(x, y)
