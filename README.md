@@ -23,7 +23,7 @@ It is recommended to install this library in a conda environment.
 1. Prepare `users.csv`, `items.csv`, and `interactions.csv`
 files. These CSV files require these formats:
 
-    `users.csv`:
+    `users.csv`
 
     ```text
     id
@@ -32,9 +32,7 @@ files. These CSV files require these formats:
     2
     ```
 
-    `items.csv`:
-
-    Note that the `title` column must be present.
+    `items.csv` (note that the `title` column must be present):
 
     ```text
     id,title
@@ -44,9 +42,7 @@ files. These CSV files require these formats:
     3,sustainable environment
     ```
 
-    `interactions.csv`:
-
-    Note that the user and item are IDs defined in `users.csv` and `items.csv` respectively.
+    `interactions.csv` (note that the user and item are IDs defined in `users.csv` and `items.csv` respectively)
 
     ```text
     user,item,interaction
