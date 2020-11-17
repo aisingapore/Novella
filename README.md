@@ -56,7 +56,7 @@ files. These CSV files require these formats:
     Import the relevant function and class.
 
     ```python
-    >>> from recsys_pipeline import preprocess, Recommender
+    >>> from qrecsys import preprocess, Recommender
     ```
 
     Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv
