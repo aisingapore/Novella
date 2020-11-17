@@ -94,12 +94,6 @@ Here is what happens during retrieval:
 
 ## Key features of algorithm
 
-* **Transactional similarity**
-* **Semantic similarity**
-* **Implicit feedback**
-
-## Use cases
-
-* Book recommendations
-* Product recommendations
-* Movie recommendations
+* **Transactional similarity** Similar items based on users reading history
+* **Semantic similarity** Similar items based on semantics of title
+* **Implicit feedback** User interactions do not explicitly indicate that the user 'liked' it, rather representing a transaction
