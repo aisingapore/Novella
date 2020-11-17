@@ -59,19 +59,24 @@ files. These CSV files require these formats:
     >>> from qrecsys import preprocess, Recommender
     ```
 
-    Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv
-    in the current directory.
+    Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv in the current directory.
 
     ```python
-    >>> preprocess()
+    >>> preprocess(path_interactions="samples/interactions.csv",
+                   path_items="samples/items.csv")
     ```
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
     ```python
-    >>> recommender = Recommender()
-    >>> recommender.recommend("sustainable environment")
-    [3, 0, 1, 2]
+    >>> recommender = Recommender(path_interactions="samples/interactions.csv",
+                                  path_items="samples/items.csv")
+    >>> recommender.recommend("politics")
+    ['Contentious politics',
+    'Globalisation, environment and social justice : perspectives, issues and concerns',
+    'The will to improve : governmentality, development, and the practice of politics',
+    'New state spaces : urban governance and the rescaling of statehood',
+    'Shadows in the forest : Japan and the politics of timber in Southeast Asia']
     ```
 
 ## How it works
