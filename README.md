@@ -68,7 +68,7 @@ files. These CSV files require these formats:
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
-    ```
+    ```python
     >>> recommender = Recommender()
     >>> recommender.recommend("sustainable environment")
     [3, 0, 1, 2]
