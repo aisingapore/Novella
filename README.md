@@ -5,7 +5,7 @@ This library allows you to query the most transactionally similar item using sem
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
 * [How it works](#how-it-works)
-* [Key features](#key-features)
+* [Key features of algorithm](#key-features-of-algorithm)
 * [Use cases](#use-cases)
 
 ## Requirements
@@ -87,7 +87,7 @@ Here is what happens during retrieval:
 1. The query is semantically encoded using USE and we find the most similar items in the semantic embedding space.
 2. We obtain the respective transactional embeddings of the items from above and return it to the user.
 
-## Key features of the algorithm
+## Key features of algorithm
 
 * **Transactional similarity**
 * **Semantic similarity**
