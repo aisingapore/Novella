@@ -1,11 +1,12 @@
-# Query-based recommender system
+# Q-recsys (Query-based recommender system)
 
-This is a quasi search engine recommender system that takes in a query and returns transactionally similar items. This method is used in NUS Libraries.
+This library allows you to query the most transactionally similar item using semantic information based on a list of users, items and user-item interactions.
 
-* [Introduction](##introduction)
+* [Key features](##key-features)
 * [Requirements](##requirements)
 * [Quick start](##quick-start)
 * [How it works](##how-it-works)
+* [Use cases](##use-cases)
 
 ## Requirements
 
@@ -58,8 +59,16 @@ files. These CSV files require these formats:
 
     ```python
     >>> from recsys_pipeline import preprocess, Recommender
-    >>> # looks for interactions.csv and items.csv in the current directory
+    ```
+
+    ```
     >>> preprocess()
+    ```
+
+    By default, the method above looks for interactions.csv and items.csv
+    in the current directory
+
+    ```
     >>> recommender = Recommender()
     >>> recommender.recommend("sustainable environment")
     [3, 0, 1, 2]
@@ -75,5 +84,17 @@ Transactional embeddings are the latent representations found by matrix factoris
 
 Here is what happens during retrieval:
 
-1. the query is semantically encoded using USE and we find the most similar items in the semantic embedding space
+1. The query is semantically encoded using USE and we find the most similar items in the semantic embedding space.
 2. We obtain the respective transactional embeddings of the items from above and return it to the user.
+
+## Key features of the algorithm
+
+* **Transactional similarity**
+* **Semantic similarity**
+* **Implicit feedback**
+
+## Use cases
+
+* Book recommendations
+* Product recommendations
+* Movie recommendations
