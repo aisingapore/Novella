@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 
 import implicit
@@ -46,6 +47,7 @@ def preprocess(interactions: str = "interactions.csv",
 
     # Format to usable data
     titles = df_items["title"].tolist()
+    batched_titles = batch(titles)
     mat = csr_matrix(
         (df_intxn["interaction"], (df_intxn["item"], df_intxn["user"])))
 
@@ -58,8 +60,8 @@ def preprocess(interactions: str = "interactions.csv",
 
     # MF & USE embeddings
     embeds_mf = model_mf.item_factors.copy()
-    embeds_use = model_use(titles)
-    embeds_use = embeds_use.numpy()
+    embeds_use = [model_use(batched).numpy() for batched in batched_titles]
+    embeds_use = np.vstack(embeds_use)
 
     # Serialise embeddings
     np.save("embeds_mf.npy", embeds_mf)
@@ -70,15 +72,17 @@ class Recommender:
 
     def __init__(self,
                  path_embeds_mf: str = "embeds_mf.npy",
-                 path_embeds_use: str = "embeds_mf.npy"):
+                 path_embeds_use: str = "embeds_mf.npy",
+                 path_interactions: str = "interactions.csv",):
 
         path_embeds_mf = Path(path_embeds_mf)
         path_embeds_use = Path(path_embeds_use)
+        path_interactions = Path(path_interactions)
 
         self.encoder = hub.load(EMBEDS_USE_URL)
         self.embeds_mf = np.load(path_embeds_mf)
         self.embeds_use = np.load(path_embeds_use)
-        self.interacted_items = set(pd.read_csv("interactions.csv")["item"])
+        self.interacted_items = set(pd.read_csv(path_interactions)["item"])
 
     def recommend(self,
                   query: str,
@@ -135,10 +139,18 @@ class Recommender:
 
         return recs[:n_to_recommend]
 
-    def _find_nearest(x, y, K) -> list:
+    def _find_nearest(self, x, y, K) -> list:
         dists = euclidean_distances(x, y)
         sorted_items = np.argsort(dists)[::-1]
         return sorted_items[0][:K]
+
+
+def batch(items, batch_size=32):
+    num_batches = math.ceil(len(items) / batch_size)
+    batched_items = [
+        items[batch_size*batch_idx:batch_size*(batch_idx+1)]
+        for batch_idx in range(num_batches)]
+    return batched_items
 
 
 class ColumnNotFoundError(Exception):
