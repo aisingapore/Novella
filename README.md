@@ -53,16 +53,20 @@ files. These CSV files require these formats:
 
 2. Run the following:
 
+    Import the relevant function and class.
+
     ```python
     >>> from recsys_pipeline import preprocess, Recommender
     ```
 
-    ```
+    Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv
+    in the current directory.
+
+    ```python
     >>> preprocess()
     ```
 
-    By default, the method above looks for interactions.csv and items.csv
-    in the current directory
+    Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
     ```
     >>> recommender = Recommender()
