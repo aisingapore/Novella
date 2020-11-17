@@ -2,11 +2,11 @@
 
 This library allows you to query the most transactionally similar item using semantic information based on a list of users, items and user-item interactions.
 
-* [Key features](##key-features)
-* [Requirements](##requirements)
-* [Quick start](##quick-start)
-* [How it works](##how-it-works)
-* [Use cases](##use-cases)
+* [Requirements](#requirements)
+* [Quick start](#quick-start)
+* [How it works](#how-it-works)
+* [Key features](#key-features)
+* [Use cases](#use-cases)
 
 ## Requirements
 
