@@ -1,4 +1,5 @@
 import math
+from typing import List
 from pathlib import Path
 
 import implicit
@@ -167,13 +168,24 @@ class Recommender:
         return recs_titles
 
 
-    def _find_nearest(self, x, y, K) -> list:
+    def _find_nearest(self, x, y, K: int) -> list:
+        """Find K nearest neighbours from a list of embeddings given a query.
+        Similarity metric is calculated using Euclidean distance.
+
+        Args:
+            x (array-like): Query embedding
+            y (array-like): A list of embeddings
+            K (int): No. of neighbours to retrieve
+
+        Returns:
+            list: Nearest neighbours
+        """
         dists = euclidean_distances(x, y)
         sorted_items = np.argsort(dists)[::-1]
         return sorted_items[0][:K]
 
 
-def batch(items, batch_size=32) -> List[List[str]]:
+def batch(items: List[str], batch_size=32) -> List[List[str]]:
     num_batches = math.ceil(len(items) / batch_size)
     batched_items = [
         items[batch_size*batch_idx:batch_size*(batch_idx+1)]
