@@ -91,22 +91,27 @@ The whole process can be divided into 2 stages.
 
 ![qrecsys.png](qrecsys.png)
 
-**Stage 1: Create title embeddings**
+**Stage 0: Create title embeddings**
 
-Every item is encoded as two vector representations: the *semantic embedding* and *transactional embedding*.
-Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE).
-Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique.
+The first stage is attributed to `qrecsys.process`.
 
-The `process` function in the `qrecsys` module takes care of reading the CSV files, encoding the titles into USE and MF embeddings,
-then serialising these vector representations to be used in the next step.
+Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
+serialised for use in the next step 1.
 
-**Step 2: Retrieval**
+Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from TF Hub, trained on various data sources. The size of this embedding is 512.
 
-Here is what happens in the retrieval stage:
+Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. The size of the latent representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512).
 
-1. Read the serialised vector representations.
-2. The query is semantically encoded using USE and we find the most similar items in the semantic embedding space.
-3. We obtain the respective transactional embeddings of the items from above and return it to the user.
+**Step 1: Querying**
+
+This stage is attributed to `qrecys.Recommender`. Here is what happens in the querying stage:
+
+1. Read the serialised vector representations. This is done when a new instance of `Recommender` is created.
+2. In `Recommender.recommend`, the query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
+3. For ever USE vector, we fetch `K_mf` most similar items in the MF embedding space.
+4. Finally, we return `n_to_recommend` items to the user.
+
+Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted before (these vectors are 0). In this cases, we set `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly so that we avoid this problem.
 
 ## Key features of algorithm
 
