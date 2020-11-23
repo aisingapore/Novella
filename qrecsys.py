@@ -186,6 +186,16 @@ class Recommender:
 
 
 def batch(items: List[str], batch_size=32) -> List[List[str]]:
+    """Batch a list of strings to a list of lists having a maximum
+    of 32 items.
+
+    Args:
+        items (List[str]): A list of items
+        batch_size (int, optional): Defaults to 32.
+
+    Returns:
+        List[List[str]]: A list of batched items
+    """
     num_batches = math.ceil(len(items) / batch_size)
     batched_items = [
         items[batch_size*batch_idx:batch_size*(batch_idx+1)]
