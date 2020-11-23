@@ -2,6 +2,9 @@
 
 This library allows you to query the most transactionally similar item using semantic information based on a list of users, items and user-item interactions.
 
+It is beneficial that users of this repo are somewhat familiar with these concepts:
+collaborative filtering, deep learning and nearest neighbours.
+
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
 * [How it works](#how-it-works)
