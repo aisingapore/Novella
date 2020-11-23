@@ -13,16 +13,28 @@ EMBEDS_USE_URL = "https://tfhub.dev/google/universal-sentence-encoder/4"
 
 def preprocess(path_interactions: str = "interactions.csv",
                path_items: str = "items.csv",
-               path_serialised: str = "."):
+               path_serialised: str = ".",
+               embeds_use_url: str = EMBEDS_USE_URL,
+               embeds_mf_dim: int = 8):
     """
-    Read data, fit the data, comvert to embeddings and serialise.
+    Read data, fit the data, convert title to USE & MF embeddings and
+    serialise these embeddings.
 
     Args:
-        interactions (str, optional): Interactions file. Defaults to
-            "interactions.csv".
-        items (str, optional): Items file. Defaults to "items.csv".
+        path_interactions (str, optional): Path to interactions file.
+            Defaults to "interactions.csv".
+        path_items (str, optional): Path to items file.
+            Defaults to "items.csv".
+        path_serialised (str, optional): Directory to save the serialised data.
+            Defaults to ".".
+        embeds_use_url (str, optional): The URL of the USE encoder model to use
+            from TF Hub. Defaults to EMBEDS_USE_URL (version 4).
+        embeds_mf_dim (int, optional): The no. of dimensions of the MF embedding.
+            Defaults to 8.
 
     Raises:
+        FileNotFoundError: If "path_interactions" is invalid.
+        FileNotFoundError: If "path_serialised" is invalid.
         ColumnNotFoundError: If "user", "item", and "interaction"
             columns are not found in the interactions file
         ColumnNotFoundError: If "title" column not found in the
@@ -50,17 +62,19 @@ def preprocess(path_interactions: str = "interactions.csv",
         raise ColumnNotFoundError("`title` must be present in items")
 
     # Format to usable data
+    # Titles are batched to encoder the titles
+    # CSR matrix is a sparse matrix that is used in implicit
     titles = df_items["title"].tolist()
     batched_titles = batch(titles)
     mat = csr_matrix(
         (df_intxn["interaction"], (df_intxn["item"], df_intxn["user"])))
 
     # MF Model
-    model_mf = implicit.als.AlternatingLeastSquares(factors=8)
+    model_mf = implicit.als.AlternatingLeastSquares(factors=embeds_mf_dim)
     model_mf.fit(mat)
 
     # USE model
-    model_use = hub.load(EMBEDS_USE_URL)
+    model_use = hub.load(embeds_use_url)
 
     # MF & USE embeddings
     embeds_mf = model_mf.item_factors.copy()
@@ -159,7 +173,7 @@ class Recommender:
         return sorted_items[0][:K]
 
 
-def batch(items, batch_size=32):
+def batch(items, batch_size=32) -> List[List[str]]:
     num_batches = math.ceil(len(items) / batch_size)
     batched_items = [
         items[batch_size*batch_idx:batch_size*(batch_idx+1)]
