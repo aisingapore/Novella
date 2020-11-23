@@ -13,13 +13,16 @@ collaborative filtering, deep learning and nearest neighbours.
 
 ## Requirements
 
-Python >= 3.4
+* Python >= 3.4
+* C++ compiler to install `implicit`. See [here](https://github.com/benfred/implicit#installation)
+for more details.
+
+We recommend installing the dependencies using conda:
 
 ```bash
+conda create -n qrecsys python==3.7
 pip install -r requirements.txt
 ```
-
-It is recommended to install this library in a conda environment.
 
 ## Quick start
 
