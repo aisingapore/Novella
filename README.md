@@ -68,15 +68,15 @@ files. These CSV files require these formats:
     Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv in the current directory.
 
     ```python
-    >>> preprocess(path_interactions="samples/interactions.csv",
-                   path_items="samples/items.csv")
+    >>> preprocess(path_interactions="interactions.csv",
+                   path_items="items.csv")
     ```
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
     ```python
-    >>> recommender = Recommender(path_interactions="samples/interactions.csv",
-                                  path_items="samples/items.csv")
+    >>> recommender = Recommender(path_interactions="interactions.csv",
+                                  path_items="items.csv")
     >>> recommender.recommend("politics")
     ['Contentious politics',
     'Globalisation, environment and social justice : perspectives, issues and concerns',
