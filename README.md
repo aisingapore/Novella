@@ -87,16 +87,26 @@ files. These CSV files require these formats:
 
 ## How it works
 
+The whole process can be divided into 2 stages.
+
+![qrecsys.png](qrecsys.png)
+
+**Stage 1: Create title embeddings**
+
 Every item is encoded as two vector representations: the *semantic embedding* and *transactional embedding*.
-
 Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE).
+Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique.
 
-Transactional embeddings are the latent representations found by matrix factorisation, a common collaborative filtering technique.
+The `process` function in the `qrecsys` module takes care of reading the CSV files, encoding the titles into USE and MF embeddings,
+then serialising these vector representations to be used in the next step.
 
-Here is what happens during retrieval:
+**Step 2: Retrieval**
 
-1. The query is semantically encoded using USE and we find the most similar items in the semantic embedding space.
-2. We obtain the respective transactional embeddings of the items from above and return it to the user.
+Here is what happens in the retrieval stage:
+
+1. Read the serialised vector representations.
+2. The query is semantically encoded using USE and we find the most similar items in the semantic embedding space.
+3. We obtain the respective transactional embeddings of the items from above and return it to the user.
 
 ## Key features of algorithm
 
