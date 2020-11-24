@@ -26,8 +26,7 @@ pip install -r requirements.txt
 
 ## Quick start
 
-1. Prepare `users.csv`, `items.csv`, and `interactions.csv`
-files. These CSV files require these formats:
+1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files. These CSV files require these formats:
 
     `users.csv`
 
@@ -57,6 +56,9 @@ files. These CSV files require these formats:
     0,3,1
     ```
 
+    Alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
+    under `samples/`.
+
 2. Run the following:
 
     Import the relevant function and class.
@@ -65,18 +67,25 @@ files. These CSV files require these formats:
     >>> from qrecsys import preprocess, Recommender
     ```
 
-    Preprocess the data and serialise the embeddings. By default, it looks for interactions.csv and items.csv in the current directory.
+    Preprocess the data and serialise the embeddings.
 
     ```python
     >>> preprocess(path_interactions="interactions.csv",
                    path_items="items.csv")
     ```
 
+    To use our samples:
+
+    ```python
+    >>> preprocess(path_interactions="samples/interactions.csv",
+                   path_items="samples/items.csv")
+    ```
+
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
     ```python
-    >>> recommender = Recommender(path_interactions="interactions.csv",
-                                  path_items="items.csv")
+    >>> recommender = Recommender(path_interactions="interactions.csv",   # or samples/interactions.csv
+                                  path_items="items.csv")  # or samples/items.csv
     >>> recommender.recommend("politics")
     ['Contentious politics',
     'Globalisation, environment and social justice : perspectives, issues and concerns',
