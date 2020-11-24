@@ -47,14 +47,19 @@ pip install -r requirements.txt
     3,sustainable environment
     ```
 
-    `interactions.csv` (note that the user and item are IDs defined in `users.csv` and `items.csv` respectively)
+    `interactions.csv` (note that the user and item are IDs defined in `users.csv` and `items.csv` respectively):
 
     ```text
     user,item,interaction
     1,0,1
-    2,2,1
+    2,2,2
     0,3,1
     ```
+
+    Every line must be an instance of interaction. For the above example, we have 3 transactions:
+    * user `1` interacted with item `0` once
+    * user `2` interacted with item `2` twice
+    * user `0` interacted with item `3` once
 
     Alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
     under `samples/`.
@@ -70,20 +75,16 @@ pip install -r requirements.txt
     Preprocess the data and serialise the embeddings.
 
     ```python
-    >>> titles_use, titles_mf = preprocess(
-            path_interactions="interactions.csv",
-            path_items="items.csv")
+    >>> preprocess(path_interactions="interactions.csv",
+                   path_items="items.csv")
     ```
 
     To use our samples:
 
     ```python
-    >>> titles_use, titles_mf = preprocess(
-            path_interactions="samples/interactions.csv",
-            path_items="samples/items.csv")
+    >>> preprocess(path_interactions="samples/interactions.csv",
+                   path_items="samples/items.csv")
     ```
-
-    Have a quick look
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
@@ -111,9 +112,22 @@ The first stage is attributed to `qrecsys.process` function.
 Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
 serialised for use in the next step 1.
 
-Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from TF Hub, trained on various data sources. The size of this embedding is 512.
+Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), trained on various data sources. The size of this embedding is 512. For example, here is the embedding for the title `Taxation of bilateral investments : tax treaties after BEPs` (first item in `samples/users.csv`) truncated to the first 10 dims:
 
-Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. The size of the latent representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512).
+```
+array([ 2.73e-02, -1.41e-02, -4.72e-02, -3.15e-02, -2.27e-02, -5.98e-02,
+       -4.31e-02, -6.53e-02, -7.63e-02, -6.71e-02, -4.85e-03, -1.71e-02,
+       ...
+       ], dtype=float32)
+```
+
+Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). For example, here is the MF embedding for the title `Taxation of bilateral investments : tax treaties after BEPs`.
+
+```
+array([ 3.21e-09,  7.45e-10,  1.20e-08,  7.04e-09,  1.11e-08,  8.88e-09, -5.66e-09,  5.26e-09], dtype=float32)
+```
+
+Note that an MF embedding will be 0's if no user has interacted with it.
 
 **Step 1: Querying**
 
