@@ -9,7 +9,7 @@ collaborative filtering, deep learning and nearest neighbours.
 * [Quick start](#quick-start)
 * [How it works](#how-it-works)
 * [Key features of algorithm](#key-features-of-algorithm)
-* [Use cases](#use-cases)
+* [Contributing](#contributing)
 
 ## Requirements
 
@@ -26,7 +26,8 @@ pip install -r requirements.txt
 
 ## Quick start
 
-1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files. These CSV files require these formats:
+1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
+    under `samples/` and skip this section). These CSV files require these formats:
 
     `users.csv`
 
@@ -57,16 +58,13 @@ pip install -r requirements.txt
     0,3,1
     ```
 
-    Every line must be an instance of an interaction. For the above example, we have 3 transactions:
+    Every line must be an instance of an interaction. For the above example, we have 4 transactions:
     * user `1` interacted with item `0` once
     * user `1` interacted with item `0` once
     * user `2` interacted with item `2` twice
     * user `0` interacted with item `3` once
 
     Note that it is fine to repeat transactions (like the first 2 lines) as they will be aggregated.
-
-    Alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
-    under `samples/`.
 
 2. Run the following:
 
@@ -79,15 +77,8 @@ pip install -r requirements.txt
     Preprocess the data and serialise the embeddings.
 
     ```python
-    >>> preprocess(path_interactions="interactions.csv",
-                   path_items="items.csv")
-    ```
-
-    To use our samples:
-
-    ```python
-    >>> preprocess(path_interactions="samples/interactions.csv",
-                   path_items="samples/items.csv")
+    >>> preprocess(path_interactions="interactions.csv",  # or samples/interactions.csv
+                   path_items="items.csv")  # or samples/items.csv
     ```
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
@@ -149,3 +140,7 @@ Note that there will be cases where similar items found in the USE space are map
 * **Transactional similarity** Similar items based on users reading history
 * **Semantic similarity** Similar items based on semantics of title
 * **Implicit feedback** User interactions do not explicitly indicate that the user 'liked' it, rather representing a transaction
+
+## Contributing
+
+See any problems? Submit an issue and/or a PR 🤗!
