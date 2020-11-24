@@ -52,14 +52,18 @@ pip install -r requirements.txt
     ```text
     user,item,interaction
     1,0,1
+    1,0,1
     2,2,2
     0,3,1
     ```
 
-    Every line must be an instance of interaction. For the above example, we have 3 transactions:
+    Every line must be an instance of an interaction. For the above example, we have 3 transactions:
+    * user `1` interacted with item `0` once
     * user `1` interacted with item `0` once
     * user `2` interacted with item `2` twice
     * user `0` interacted with item `3` once
+
+    Note that it is fine to repeat transactions (like the first 2 lines) as they will be aggregated.
 
     Alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
     under `samples/`.
@@ -121,7 +125,7 @@ array([ 2.73e-02, -1.41e-02, -4.72e-02, -3.15e-02, -2.27e-02, -5.98e-02,
        ], dtype=float32)
 ```
 
-Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). For example, here is the MF embedding for the title `Taxation of bilateral investments : tax treaties after BEPs`.
+Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Taxation of bilateral investments : tax treaties after BEPs`:
 
 ```
 array([ 3.21e-09,  7.45e-10,  1.20e-08,  7.04e-09,  1.11e-08,  8.88e-09, -5.66e-09,  5.26e-09], dtype=float32)
