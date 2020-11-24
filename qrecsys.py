@@ -70,21 +70,23 @@ def preprocess(path_interactions: str = "interactions.csv",
     mat = csr_matrix(
         (df_intxn["interaction"], (df_intxn["item"], df_intxn["user"])))
 
+    # USE model
+    model_use = hub.load(embeds_use_url)
+
     # MF Model
     model_mf = implicit.als.AlternatingLeastSquares(factors=embeds_mf_dim)
     model_mf.fit(mat)
 
-    # USE model
-    model_use = hub.load(embeds_use_url)
-
     # MF & USE embeddings
-    embeds_mf = model_mf.item_factors.copy()
     embeds_use = [model_use(batched).numpy() for batched in batched_titles]
     embeds_use = np.vstack(embeds_use)
+    embeds_mf = model_mf.item_factors.copy()
 
     # Serialise embeddings
-    np.save(path_serialised/"embeds_mf.npy", embeds_mf)
     np.save(path_serialised/"embeds_use.npy", embeds_use)
+    np.save(path_serialised/"embeds_mf.npy", embeds_mf)
+
+    return embeds_use, embeds_mf
 
 
 class Recommender:
