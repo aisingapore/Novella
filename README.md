@@ -8,7 +8,6 @@ collaborative filtering, deep learning and nearest neighbours.
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
 * [How it works](#how-it-works)
-* [Key features of algorithm](#key-features-of-algorithm)
 * [Contributing](#contributing)
 
 ## Requirements
@@ -96,16 +95,22 @@ pip install -r requirements.txt
 
 ## How it works
 
+The recommender system has the following features:
+
+* **Implicit feedback** User interactions do not explicitly indicate that the user 'liked' it, rather representing a transaction
+* **Semantic similarity** Similar items can be found based on semantics of title
+* **Transactional similarity** Similar items can be found based on other users' transactions with them
+
 The whole process can be divided into 2 stages.
 
 ![qrecsys.png](qrecsys.png)
 
-**Stage 0: Create title embeddings**
+**Stage 0: Semantic and transactional title embeddings**
 
 The first stage is attributed to `qrecsys.process` function.
 
 Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
-serialised for use in the next step 1.
+serialised for use in the next stage.
 
 Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), trained on various data sources. The size of this embedding is 512. For example, here is the embedding for the title `Taxation of bilateral investments : tax treaties after BEPs` (first item in `samples/users.csv`) truncated to the first 10 dims:
 
@@ -134,12 +139,6 @@ This stage is attributed to `qrecys.Recommender`. Here is what happens in the qu
 4. Finally, we return `n_to_recommend` items to the user.
 
 Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted before (these vectors are 0). In this cases, we set `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly so that we avoid this problem.
-
-## Key features of algorithm
-
-* **Transactional similarity** Similar items based on users reading history
-* **Semantic similarity** Similar items based on semantics of title
-* **Implicit feedback** User interactions do not explicitly indicate that the user 'liked' it, rather representing a transaction
 
 ## Contributing
 
