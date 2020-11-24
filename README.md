@@ -14,7 +14,7 @@ collaborative filtering, deep learning and nearest neighbours.
 ## Requirements
 
 * Python >= 3.4
-* C++ compiler to install `implicit`. See [here](https://github.com/benfred/implicit#installation)
+* C++ compiler is needed to install `implicit`. See [here](https://github.com/benfred/implicit#installation)
 for more details.
 
 We recommend installing the dependencies using conda:
@@ -70,16 +70,20 @@ pip install -r requirements.txt
     Preprocess the data and serialise the embeddings.
 
     ```python
-    >>> preprocess(path_interactions="interactions.csv",
-                   path_items="items.csv")
+    >>> titles_use, titles_mf = preprocess(
+            path_interactions="interactions.csv",
+            path_items="items.csv")
     ```
 
     To use our samples:
 
     ```python
-    >>> preprocess(path_interactions="samples/interactions.csv",
-                   path_items="samples/items.csv")
+    >>> titles_use, titles_mf = preprocess(
+            path_interactions="samples/interactions.csv",
+            path_items="samples/items.csv")
     ```
+
+    Have a quick look
 
     Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
 
@@ -102,7 +106,7 @@ The whole process can be divided into 2 stages.
 
 **Stage 0: Create title embeddings**
 
-The first stage is attributed to `qrecsys.process`.
+The first stage is attributed to `qrecsys.process` function.
 
 Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
 serialised for use in the next step 1.
