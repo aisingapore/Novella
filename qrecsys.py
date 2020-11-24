@@ -62,6 +62,9 @@ def preprocess(path_interactions: str = "interactions.csv",
     if "title" not in df_items.columns:
         raise ColumnNotFoundError("`title` must be present in items")
 
+    # Aggregate interactions data
+    df_intxn = df_intxn.groupby(["user","item"]).sum().reset_index()
+
     # Format to usable data
     # Titles are batched to encoder the titles
     # CSR matrix is a sparse matrix that is used in implicit
