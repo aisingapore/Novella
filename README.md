@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 ## Quick start
 
-1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (alternatively, you can just make use of the sample `users.csv`, `items.csv` and `interactions.csv` files
+1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (alternatively, you can just make use of the sample files
     under `samples/` and skip this section). These CSV files require these formats:
 
     `users.csv`
