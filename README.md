@@ -86,12 +86,12 @@ pip install -r requirements.txt
     ```python
     >>> recommender = Recommender(path_interactions="interactions.csv",   # or samples/interactions.csv
                                   path_items="items.csv")  # or samples/items.csv
-    >>> recommender.recommend("politics")
-    ['Contentious politics',
-    'Globalisation, environment and social justice : perspectives, issues and concerns',
-    'The will to improve : governmentality, development, and the practice of politics',
-    'New state spaces : urban governance and the rescaling of statehood',
-    'Shadows in the forest : Japan and the politics of timber in Southeast Asia']
+    >>> recommender.recommend("latent heat")  # if you are using our samples
+    ['Convective heat transfer',
+    'Procedures for simulating the performance of components and systems for energy calculations',
+    'Roman power : a thousand years of empire',
+    'The last generation of the Roman Republic',
+    'Satoyama--satoumi ecosystems and human well-being : socio-ecological production landscapes of Japan']
     ```
 
 ## How it works
@@ -113,19 +113,20 @@ The first stage is attributed to `qrecsys.process` function.
 Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
 serialised for use in the next stage.
 
-Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), trained on various data sources. The size of this embedding is 512. For example, here is the embedding for the title `Taxation of bilateral investments : tax treaties after BEPs` (first item in `samples/users.csv`) truncated to the first 10 dims:
+Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), trained on various data sources. The size of this embedding is 512. For example, here is the embedding for the title `Problem solving in analytical chemistry` (first item in `samples/users.csv`) truncated to the first 10 dims:
 
 ```
-array([ 2.73e-02, -1.41e-02, -4.72e-02, -3.15e-02, -2.27e-02, -5.98e-02,
-       -4.31e-02, -6.53e-02, -7.63e-02, -6.71e-02, -4.85e-03, -1.71e-02,
+array([[ 6.64e-02, -7.70e-02,  2.66e-02,  2.28e-02,  6.38e-03, -6.71e-02,
+        -5.27e-02, -5.45e-02,  8.83e-03,  5.14e-02, -5.92e-02, -1.17e-02,
        ...
        ], dtype=float32)
 ```
 
-Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Taxation of bilateral investments : tax treaties after BEPs`:
+Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Problem solving in analytical chemistry`:
 
 ```
-array([ 3.21e-09,  7.45e-10,  1.20e-08,  7.04e-09,  1.11e-08,  8.88e-09, -5.66e-09,  5.26e-09], dtype=float32)
+array([ 1.17e-04,  3.14e-04, -5.00e-05, -1.21e-04,  1.19e-04, -1.43e-04,
+       -5.16e-05,  3.34e-04], dtype=float32)
 ```
 
 Note that an MF embedding will be 0's if no user has interacted with it.
