@@ -14,7 +14,7 @@ collaborative filtering, deep learning and nearest neighbours.
 
 * Python >= 3.4
 * C++ compiler is needed to install `implicit`. See [here](https://github.com/benfred/implicit#installation)
-for more details.
+for more details. Note that if you have OpenBLAS or MKL installed, it is recommended to set the number of threads to 0 for optimal performance, as mentioned [here](https://github.com/benfred/implicit#optimal-configuration).
 
 We recommend installing the dependencies using conda:
 
@@ -22,6 +22,7 @@ We recommend installing the dependencies using conda:
 conda create -n qrecsys python==3.7
 pip install -r requirements.txt
 ```
+
 
 ## Quick start
 
