@@ -137,7 +137,7 @@ This stage is attributed to `qrecys.Recommender`. Here is what happens in the qu
 
 1. Read the serialised vector representations. This is done when a new instance of `Recommender` is created.
 2. In `Recommender.recommend`, the query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
-3. For ever USE vector, we fetch `K_mf` most similar items in the MF embedding space.
+3. For every USE vector, we fetch `K_mf` most similar items in the MF embedding space.
 4. Finally, we return `n_to_recommend` items to the user.
 
 Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted before (these vectors are 0). In this cases, we set `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly so that we avoid this problem.
