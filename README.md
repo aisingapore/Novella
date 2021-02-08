@@ -1,6 +1,8 @@
 # Background
 
-This is an open-source implementation of a recommender model that AI Singapore developed for NUS Libraries. When a user submits a search query on the FindMore* portal on the library website, a list of recommended titles will be returned in real time to augment the search results and provide a greater diversity of choices. These are based on analysing the natural language characteristics of the search string, as well as the historical transactions between all users and titles (borrowings/downloads). 
+This is an open-source implementation of a search-based recommender model that AI Singapore developed for the National University of Singapore's NUS Libraries. 
+
+When a user submits a search query on the FindMore* portal on the Libraries' website, a list of recommended titles will be returned in real time to augment the search results and provide a greater diversity of choices. These are based on analysing the natural language characteristics of the search string, as well as the historical transactions between all users and titles (borrowings/downloads). 
 
 Recommender systems differ from search engines in that they are designed to uncover titles that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
 
@@ -11,12 +13,15 @@ The model learns from the following information:
 2) Items' descriptions
 3) All users’ borrowing and downloading histories (transactions between every user and title)
 
-*The FindMore portal is a unified search platform that aggregates results from internal and external databases with a single search: https://libportal.nus.edu.sg/frontend/index.
+
+*The FindMore portal of NUS Libraries is a unified search platform that aggregates results from internal and external databases with a single search: https://libportal.nus.edu.sg/frontend/index.
 
 
 # Q-recsys (Query-based recommender system)
 
-This library allows you to generate a list of items that captures semantic similarity to the search query whilst extending it to items with high transactional similarity. The inputs are based on a list of users, items and user-item interactions.
+This library allows you to generate a list of items that reflects semantic similarity to the search query whilst extending it to items with high transactional similarity. 
+
+The inputs are based on a list of users, items and user-item interactions.
 
 It is beneficial that users of this repo are somewhat familiar with these concepts:
 collaborative filtering, deep learning and nearest neighbours.
