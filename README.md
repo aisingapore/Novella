@@ -9,7 +9,7 @@ The model learns from the following information:
 2) Titles' descriptions
 3) All users’ borrowing and downloading histories (transactions between every user and title)
 
-*The FindMore portal of NUS Libraries is a unified search platform that aggregates results from internal and external databases with a single search: https://libportal.nus.edu.sg/frontend/index.
+* *The FindMore portal of NUS Libraries is a unified search platform that aggregates results from internal and external databases with a single search: https://libportal.nus.edu.sg/frontend/index.*
 
 
 # Use cases
