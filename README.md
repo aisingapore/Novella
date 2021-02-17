@@ -112,8 +112,8 @@ pip install -r requirements.txt
 
 ## Using the library
 
-1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (alternatively, you can just make use of the sample files
-    under `samples/` and skip this section). These CSV files require these formats:
+1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (for trial purposes, you can also make use of the sample files provided
+    under `samples/` and skip this part). These CSV files require these formats:
 
     `users.csv`
 
@@ -167,7 +167,7 @@ pip install -r requirements.txt
                    path_items="items.csv")  # or samples/items.csv
     ```
 
-    Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a query.
+    Instantiate the recommender (it will look for the serialised data files). Then recommend items based on a search query.
 
     ```python
     >>> recommender = Recommender(path_interactions="interactions.csv",   # or samples/interactions.csv
@@ -179,6 +179,7 @@ pip install -r requirements.txt
     'The last generation of the Roman Republic',
     'Satoyama--satoumi ecosystems and human well-being : socio-ecological production landscapes of Japan']
     ```
+*Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset in terms of size. Please treat the results of any model trained on this sample dataset as purely illustrative. To take the solution forward, we urge interested users to compile their own training dataset following the structure explained above.*
 
 
 ## Contributing
