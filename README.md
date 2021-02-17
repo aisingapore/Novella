@@ -35,9 +35,9 @@ The inputs to the model are:
 
 It is beneficial if users of this repo have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
 
-* [Requirements](#requirements)
-* [Quick start](#quick-start)
 * [How it works](#how-it-works)
+* [Requirements](#requirements)
+* [Using the library](#using-the-library)
 * [Contributing](#contributing)
 
 
