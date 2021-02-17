@@ -14,9 +14,9 @@ The model learns from the following information:
 
 # Use cases
 
-The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations.
+The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations alongside the default search results.
 
-Recommender systems differ from search engines in that they are designed to uncover titles that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
+Recommender systems play a different role from search engines in that they are designed to uncover titles that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
 
 ![recsearch.png](recsearch.png)
 
