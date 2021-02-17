@@ -14,14 +14,14 @@ The model learns from the following information:
 
 # Use cases
 
-The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations alongside their default search results.
+The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations on top of their default search results. The recommender system can be triggered by the entering of the search term, and the list of items can be displayed alongside the search results.
 
 Recommender systems play a different role from search engines in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
 
 ![recsearch.png](recsearch.png)
 
 
-# Q-recsys (Query-based recommender system)
+# SRecsys (Search-based recommender system)
 
 This library allows you to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
