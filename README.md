@@ -33,7 +33,7 @@ The inputs to the model are:
 - List of items 
 - Table of historical user-item interactions.
 
-It is beneficial if users of this repo have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
+It is beneficial if users of this library have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
 
 * [How it works](#how-it-works)
 * [Requirements](#requirements)
