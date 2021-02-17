@@ -22,7 +22,9 @@ Recommender systems play a different role from search engines in that they are d
 
 # Q-recsys (Search query-based recommender system)
 
-This library allows you to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
+The model source code and a sample (anonymised) training dataset are provided in this library.
+
+The objective of the model is to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
 In our context, items refer to books/articles/e-resource titles. We use the terms 'transactions' and 'interactions' interchangeably to refer to borrowings and downloads of these items.
 
