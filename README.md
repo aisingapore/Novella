@@ -19,12 +19,17 @@ The model learns from the following information:
 
 # Q-recsys (Query-based recommender system)
 
-This library allows you to generate a list of items that reflects semantic similarity to the search query whilst extending it to items with high transactional similarity. 
+This library allows you to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
-The inputs are based on a list of users, items and user-item interactions.
+We use the terms 'transactions' and 'interactions' interchangeably to refer to borrowings and downloads of titles.
 
-It is beneficial that users of this repo are somewhat familiar with these concepts:
-collaborative filtering, deep learning and nearest neighbours.
+The inputs to the model are:
+- List of users
+- List of items 
+- Table of historical user-item interactions.
+
+It is beneficial if users of this repo have a working understanding of these concepts:
+collaborative filtering, deep learning language models, and nearest neighbours.
 
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
@@ -118,13 +123,14 @@ pip install -r requirements.txt
 
 ## How it works
 
-The recommender system has the following features:
+The recommender system combines the following 2 ideas:
 
-* **Implicit feedback** User interactions do not explicitly indicate that the user 'liked' it, rather representing a transaction
-* **Semantic similarity** Similar items can be found based on semantics of title
-* **Transactional similarity** Similar items can be found based on other users' transactions with them
+* **Semantic similarity** Similar items can be found based on the natural language characteristics of their titles
+* **Transactional similarity** Similar items can be found based on the transactions of other users who have items in common
 
-The whole process can be divided into 2 stages.
+Again, transactions here refer to borrowings or downloads of a title. This is a form of *implicit feedback*, which does not explicitly indicate that the user 'liked' the item.
+
+The process can be divided into 2 stages as follows.
 
 ![qrecsys.png](qrecsys.png)
 
@@ -132,10 +138,14 @@ The whole process can be divided into 2 stages.
 
 The first stage is attributed to `qrecsys.process` function.
 
-Every item is first encoded as two vector representations: the *semantic embedding* and *transactional embedding*. Then, these representations are
+Every item is first encoded as two vector representations: the semantic embedding and transactional embedding. Then, these representations are
 serialised for use in the next stage.
 
-Semantic embeddings are found by encoding the title of every item using Universal Sentence Encoder (USE). We use the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), trained on various data sources. The size of this embedding is 512. For example, here is the embedding for the title `Problem solving in analytical chemistry` (first item in `samples/users.csv`) truncated to the first 10 dims:
+*Semantic embeddings* are found by encoding the title of every item in the database using Google's Universal Sentence Encoder (USE). 
+
+We use the implementation of the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), which has been pre-trained on extensive data sources. The size of this embedding is 512. 
+
+For example, here is the embedding for the title `Problem solving in analytical chemistry` (first item in `samples/users.csv`), truncated to the first 10 dims for illustration:
 
 ```
 array([[ 6.64e-02, -7.70e-02,  2.66e-02,  2.28e-02,  6.38e-03, -6.71e-02,
@@ -144,7 +154,9 @@ array([[ 6.64e-02, -7.70e-02,  2.66e-02,  2.28e-02,  6.38e-03, -6.71e-02,
        ], dtype=float32)
 ```
 
-Transactional embeddings are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique. We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Problem solving in analytical chemistry`:
+*Transactional embeddings* are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique designed to uncover hidden relationships among items based on shared interactions by users. 
+
+We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Problem solving in analytical chemistry`:
 
 ```
 array([ 1.17e-04,  3.14e-04, -5.00e-05, -1.21e-04,  1.19e-04, -1.43e-04,
