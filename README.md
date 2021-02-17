@@ -84,7 +84,7 @@ array([ 1.17e-04,  3.14e-04, -5.00e-05, -1.21e-04,  1.19e-04, -1.43e-04,
 
 Note that an MF embedding will be 0's if no user has interacted with it.
 
-**Step 1: Querying**
+**Step 1: Generating recommendations**
 
 This stage is attributed to `qrecys.Recommender`. Here is what happens in the querying stage:
 
