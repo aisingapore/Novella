@@ -6,7 +6,7 @@ When a user submits a search query on the FindMore* portal on the Libraries' web
 
 The model learns from the following information:
 1) Current search term’s linguistic features
-2) Items' descriptions
+2) Titles' descriptions
 3) All users’ borrowing and downloading histories (transactions between every user and title)
 
 *The FindMore portal of NUS Libraries is a unified search platform that aggregates results from internal and external databases with a single search: https://libportal.nus.edu.sg/frontend/index.
@@ -16,7 +16,7 @@ The model learns from the following information:
 
 The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations alongside the default search results.
 
-Recommender systems play a different role from search engines in that they are designed to uncover titles that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
+Recommender systems play a different role from search engines in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more diverse choices that still retain relevance and interest.
 
 ![recsearch.png](recsearch.png)
 
@@ -25,15 +25,14 @@ Recommender systems play a different role from search engines in that they are d
 
 This library allows you to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
-We use the terms 'transactions' and 'interactions' interchangeably to refer to borrowings and downloads of titles.
+In our context, items refer to books/articles/e-resource titles. We use the terms 'transactions' and 'interactions' interchangeably to refer to borrowings and downloads of these items.
 
 The inputs to the model are:
 - List of users
 - List of items 
 - Table of historical user-item interactions.
 
-It is beneficial if users of this repo have a working understanding of these concepts:
-collaborative filtering, deep learning language models, and nearest neighbours.
+It is beneficial if users of this repo have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
 
 * [Requirements](#requirements)
 * [Quick start](#quick-start)
