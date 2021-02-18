@@ -49,9 +49,10 @@ The recommender system combines the following 2 ideas:
 
 *Note that since transactions here refer to borrowings or downloads of a title, they are a form of implicit feedback.*
 
-The process can be divided into 2 stages as follows.
-
+Schematic of how the model works:
 ![qrecsys.png](qrecsys.png)
+
+The process can be divided into 2 stages as follows.
 
 **Stage 0: Creating semantic and transactional item embeddings**
 
