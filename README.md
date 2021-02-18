@@ -47,7 +47,7 @@ The recommender system combines the following 2 ideas:
 * **Semantic similarity** - Similar items can be found based on the natural language characteristics of their titles
 * **Transactional similarity** - Similar items can be found based on the transactions of other users who have items in common
 
-Note that since transactions here refer to borrowings or downloads of a title, they are a form of *implicit feedback*, which does not explicitly indicate that the user 'liked' the item.
+*Note that since transactions here refer to borrowings or downloads of a title, they are a form of implicit feedback.*
 
 The process can be divided into 2 stages as follows.
 
