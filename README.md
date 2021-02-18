@@ -14,7 +14,7 @@ The model learns from the following information:
 
 # Use cases
 
-The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality by providing additional and insightful item recommendations on top of their default search results. The recommender system can be triggered by the entering of the search term, and the list of items can be displayed alongside the search results.
+The approach shared here can be used by anyone who wishes to extend their web/app search engine functionality through providing additional and insightful item recommendations on top of their default search results. The recommender system can be triggered by the entering of the search term, and the list of items can be displayed alongside the search results.
 
 Recommender systems play a different role from search engines in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more varied choices that still retain relevance and interest.
 ![recsearch.png](recsearch.png)
@@ -180,7 +180,7 @@ pip install -r requirements.txt
     'The last generation of the Roman Republic',
     'Satoyama--satoumi ecosystems and human well-being : socio-ecological production landscapes of Japan']
     ```
-Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset in terms of size. Please treat the results of any model trained on this sample dataset as purely illustrative. To take the solution forward, we urge interested users to compile their own training dataset following the structure explained above.
+Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset. Please treat the results of any model trained on this sample dataset as purely illustrative. To take the solution forward, we urge interested users to compile their own training dataset following the structure explained above.
 
 
 ## Credits
