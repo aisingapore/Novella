@@ -53,7 +53,7 @@ The recommender system combines the following 2 ideas:
 
 Schematic of how the model works:
 
-![qrecsys.png](qrecsys.png)
+![novella.png](novella.png)
 
 The process can be divided into 2 stages as follows.
 
