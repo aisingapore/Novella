@@ -184,7 +184,7 @@ pip install -r requirements.txt
     'The last generation of the Roman Republic',
     'Satoyama--satoumi ecosystems and human well-being : socio-ecological production landscapes of Japan']
     ```
-Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset. Please treat the results of any model trained on this sample dataset as purely illustrative. To take the solution forward, we urge interested users to compile their own training dataset following the structure explained above.
+Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset. Please treat the results of any model trained on this sample dataset as purely illustrative. To implement the solution for their use case, interested users should compile their own training dataset following the structure explained above.
 
 
 # Contributors
