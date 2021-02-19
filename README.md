@@ -46,10 +46,8 @@ It would be beneficial if users of this library have a working understanding of 
 
 The recommender system combines the following 2 ideas:
 
-* **Semantic similarity** - Similar items can be found based on the natural language characteristics of their titles
+* **Semantic similarity** - Similar items can be found based on the natural language characteristics of their titles/descriptions
 * **Transactional similarity** - Similar items can be found based on the transactions of other users who have items in common
-
-*Note that since transactions here refer to borrowings or downloads of a title, they are a form of implicit feedback.*
 
 Schematic of how the model works:
 
