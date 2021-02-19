@@ -32,10 +32,10 @@ Note that we use the terms 'transactions' and 'interactions' interchangeably.
 
 The inputs to the model are:
 - List of users
-- List of items 
-- Table of historical user-item interactions.
+- List of items with textual titles/descriptions
+- Table of historical user-item interactions
 
-It is beneficial if users of this library have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
+It would be beneficial if users of this library have a working understanding of these concepts: collaborative filtering, deep learning language models, and nearest neighbours.
 
 * [How it works](#how-it-works)
 * [Requirements](#requirements)
@@ -61,9 +61,9 @@ The process can be divided into 2 stages as follows.
 
 The first stage is attributed to `qrecsys.process` function.
 
-Every item is first encoded as two vector representations: the semantic embedding and transactional embedding. Then, these representations are serialised for use in the next stage.
+Every item in the database is first encoded into two vector representations: its semantic embedding and transactional embedding. Then, these representations are serialised and stored for use in the next stage. It is recommended to refresh the representations periodically.
 
-**Semantic embeddings** are found by encoding the title of every item in the database using Google's Universal Sentence Encoder (USE). 
+**Semantic embeddings** are found by encoding the textual title/description of every item using Google's Universal Sentence Encoder (USE). 
 
 We use the implementation of the USE encoder from [TF Hub](https://tfhub.dev) (this will be downloaded when you call `process`), which has been pre-trained on extensive data sources. The size of this embedding is 512. 
 
@@ -78,7 +78,11 @@ array([[ 6.64e-02, -7.70e-02,  2.66e-02,  2.28e-02,  6.38e-03, -6.71e-02,
 
 **Transactional embeddings** are the latent representations found by matrix factorisation (MF), a common collaborative filtering technique designed to uncover hidden relationships among items based on shared interactions by users. 
 
-We first format the interactions data into a sparse matrix then fit it using a weighted Alternated Least Squares optimiser, giving us a latent representation for every item. The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). Here is an example of an MF embedding for the title `Problem solving in analytical chemistry`:
+The input data is the table of historical user-item interactions. We first format the interactions data into a sparse matrix. Then, we model it using a Weighted Alternating Least Squares optimiser, giving us a latent representation for every item. 
+
+The size of this representation can be set in the `qrecsys.process` as the `embeds_mf_dim`. If you have a large number of items (>1M), we recommend setting the size of embedding to a higher number (eg. 256 or 512). 
+
+Here is an example of an MF embedding for the title `Problem solving in analytical chemistry`:
 
 ```
 array([ 1.17e-04,  3.14e-04, -5.00e-05, -1.21e-04,  1.19e-04, -1.43e-04,
@@ -87,16 +91,16 @@ array([ 1.17e-04,  3.14e-04, -5.00e-05, -1.21e-04,  1.19e-04, -1.43e-04,
 
 Note that an MF embedding will be 0's if no user has interacted with it.
 
-**Step 1: Generating recommendations**
+**Stage 1: Generating recommendations**
 
 This stage is attributed to `qrecys.Recommender`. Here is what happens in the querying stage:
 
-1) Read the serialised vector representations. This is done when a new instance of `Recommender` is created.
-2) In `Recommender.recommend`, the query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
+1) Read the serialised vector representations created in Stage 0. This is done when a new instance of `Recommender` is created.
+2) In `Recommender.recommend`, the incoming query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
 3) For every USE vector, we fetch `K_mf` most similar items in the MF embedding space.
 4) Finally, we return `n_to_recommend` items to the user.
 
-Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted before (these vectors are 0). In this cases, we set `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly so that we avoid this problem.
+Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted with before (these vectors are 0's). In such cases, `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly to avoid this problem.
 
 
 ## Requirements
