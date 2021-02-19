@@ -183,11 +183,12 @@ pip install -r requirements.txt
 Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset. Please treat the results of any model trained on this sample dataset as purely illustrative. To take the solution forward, we urge interested users to compile their own training dataset following the structure explained above.
 
 
-## Contributors
+# Contributors
 
 - Raimi Karim, David Chong, Bai Yaguang, Anand Natarajan and Kevin Oh of AI Singapore.
 - Mrs Lee Cheng Ean, Cheng Eng Aun, Tan Poh Lay and Ravi Kotaru of NUS.
 
+# Acknowledgments
 
 This project is supported by the National Research Foundation, Singapore under its AI Singapore Programme (AISG-RP-2019-050). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
 
