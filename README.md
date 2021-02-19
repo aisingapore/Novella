@@ -20,7 +20,7 @@ Recommender systems play a different role from search engines in that they are d
 ![recsearch.png](recsearch.png)
 
 
-# Q-recsys (Search query-based recommender system)
+# Novella (our search-based recommender system)
 
 The model source code and a sample (anonymised) training dataset are provided in this library.
 
