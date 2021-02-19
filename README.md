@@ -18,7 +18,7 @@ The recommender system can be triggered when the search term is entered, and the
 
 In the context of NUS Libraries, items refer to books/articles/e-resource titles, and transactions refer to borrowings/ downloads. In other contexts, items could refer to products and transactions could refer to purchases. 
 
-Recommender systems play a different but complementary role to search engines, in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user. This exposes users and customers to more varied choices that still retain relevance and interest.
+Recommender systems play a different but complementary role to search engines, in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user. This exposes users and customers to more varied choices that still retain relevance, thereby increasing interest and engagement.
 ![recsearch.png](recsearch.png)
 
 
