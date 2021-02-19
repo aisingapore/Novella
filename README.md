@@ -16,6 +16,8 @@ The approach shared here can be used by anyone who wishes to extend their web/ap
 
 The recommender system can be triggered when the search term is entered, and the list of items can be displayed alongside the search results.
 
+In the context of NUS Libraries, items refer to books/articles/e-resource titles, and transactions refer to borrowings/downloads. In other contexts, items could refer to products and transactions could refer to purchases. 
+
 Recommender systems play a different role from search engines in that they are designed to uncover items that are less explicit matches, but could be novel or pleasant discoveries for the user, thereby exposing them to more varied choices that still retain relevance and interest.
 ![recsearch.png](recsearch.png)
 
@@ -26,7 +28,7 @@ The model source code and a sample (anonymised) training dataset are provided in
 
 The objective of the model is to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
-In the context of NUS Libraries, items refer to books/articles/e-resource titles, and transactions refer to borrowings/downloads. In other contexts, items could refer to products and transactions could refer to purchases. We use the terms 'transactions' and 'interactions' interchangeably.
+Note that we use the terms 'transactions' and 'interactions' interchangeably.
 
 The inputs to the model are:
 - List of users
