@@ -1,4 +1,4 @@
-# Background
+# Background and use cases
 
 This is an open-source implementation of a search-based recommender system model that AI Singapore developed for the National University of Singapore Libraries. 
 
