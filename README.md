@@ -192,6 +192,6 @@ Note that the dataset provided in this library is for trial purposes, and has be
 
 This project is supported by the National Research Foundation, Singapore under its AI Singapore Programme (AISG-RP-2019-050). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
 
-## Contributing
+# Contributing
 
 See any problems or have any feedback? Submit an issue and/or a PR 🤗!
