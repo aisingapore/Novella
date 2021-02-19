@@ -26,7 +26,7 @@ The model source code and a sample (anonymised) training dataset are provided in
 
 The objective of the model is to generate a list of items that takes into account semantic similarity to the search term, whilst extending it to items with high transactional similarity. 
 
-In our context, items refer to books/articles/e-resource titles. We use the terms 'transactions' and 'interactions' interchangeably to refer to borrowings and downloads of these items.
+In the context of NUS Libraries, items refer to books/articles/e-resource titles, and transactions refer to borrowings/downloads. In other contexts, items could refer to products and transactions could refer to purchases. We use the terms 'transactions' and 'interactions' interchangeably.
 
 The inputs to the model are:
 - List of users
@@ -89,10 +89,10 @@ Note that an MF embedding will be 0's if no user has interacted with it.
 
 This stage is attributed to `qrecys.Recommender`. Here is what happens in the querying stage:
 
-1. Read the serialised vector representations. This is done when a new instance of `Recommender` is created.
-2. In `Recommender.recommend`, the query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
-3. For every USE vector, we fetch `K_mf` most similar items in the MF embedding space.
-4. Finally, we return `n_to_recommend` items to the user.
+1) Read the serialised vector representations. This is done when a new instance of `Recommender` is created.
+2) In `Recommender.recommend`, the query is first semantically encoded using USE. Then we find the `K_use` most similar items in the semantic embedding space.
+3) For every USE vector, we fetch `K_mf` most similar items in the MF embedding space.
+4) Finally, we return `n_to_recommend` items to the user.
 
 Note that there will be cases where similar items found in the USE space are mapped to items in the MF space that have not been interacted before (these vectors are 0). In this cases, we set `use_buffer_multiplier` and `mf_buffer_multiplier` can be increased accordingly so that we avoid this problem.
 
@@ -113,7 +113,7 @@ pip install -r requirements.txt
 
 ## Using the library
 
-1. Prepare `users.csv`, `items.csv`, and `interactions.csv` files (for trial purposes, you can also make use of the sample files provided
+1) Prepare `users.csv`, `items.csv`, and `interactions.csv` files (for trial purposes, you can also make use of the sample files provided
     under `samples/` and skip this part). These CSV files require these formats:
 
     `users.csv`
@@ -153,7 +153,7 @@ pip install -r requirements.txt
 
     Note that it is fine to repeat transactions (like the first 2 lines) as they will be aggregated.
 
-2. Run the following:
+2) Run the following:
 
     Import the relevant function and class.
 
@@ -185,7 +185,10 @@ Note that the dataset provided in this library is for trial purposes, and has be
 
 ## Credits
 
-Thanks to Raimi Karim, David Chong, Bai Yaguang and Kevin Oh of AI Singapore.
+Thanks to:
+
+- Raimi Karim, David Chong, Bai Yaguang, Anand Natarajan and Kevin Oh of AI Singapore.
+- Mrs Lee Cheng Ean, Cheng Eng Aun, Tan Poh Lay and Ravi Kotaru of NUS.
 
 
 ## Contributing
