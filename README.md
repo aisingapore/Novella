@@ -186,7 +186,7 @@ pip install -r requirements.txt
     ```
 Note that the dataset provided in this library is for trial purposes, and has been downsampled significantly from the original training dataset. Please treat the results of any model trained on this sample dataset as purely illustrative. 
 
-To implement the solution for their use case, interested users should compile their own training dataset following the structure explained above.
+To implement the solution for their use case, interested users are encouraged to compile their own training dataset following the data structure explained above.
 
 
 # Contributors
@@ -197,6 +197,8 @@ To implement the solution for their use case, interested users should compile th
 # Acknowledgments
 
 This project is supported by the National Research Foundation, Singapore under its AI Singapore Programme (AISG-RP-2019-050). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
+
+With the kind permission of NUS Libraries, the source code and sample dataset has been licensed under Apache 2.0 and made freely available for the public to access.
 
 # Contributing
 
