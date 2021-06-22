@@ -202,4 +202,4 @@ With the kind permission of NUS Libraries, the source code and sample dataset ha
 
 # Contributing
 
-See any problems or have any feedback? Submit an issue and/or a PR 🤗!
+See any problems or have any feedback? Submit an issue and/or a PR!
